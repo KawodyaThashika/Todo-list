@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Todo App</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+        .todo {
+            background: white;
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+
+<h2>📝 Todo List</h2>
+
+<form action="/add" method="post">
+    <input type="text" name="title" placeholder="New Todo" required>
+    <button type="submit">Add</button>
+</form>
+
+<hr>
+
+<div th:each="todo : ${todos}" class="todo">
+    <span th:text="${todo.title}"
+          th:classappend="${todo.completed} ? 'done' : ''"></span>
+
+    <a th:href="@{/toggle/{id}(id=${todo.id})}">✔</a>
+    <a th:href="@{/delete/{id}(id=${todo.id})}">❌</a>
+</div>
+
+</body>
+</html>
